@@ -3,6 +3,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { User } from './entity/user.entity';
+import { UserModule } from './modules/user/user.module';
+
+import { Log4jsModule } from '@nestx-log4js/core';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -12,9 +17,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'root',
       password: '624282',
       database: 'nest_test',
-      entities: [],
+      entities: [User],
       synchronize: true,
     }),
+    Log4jsModule.forRoot(),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
