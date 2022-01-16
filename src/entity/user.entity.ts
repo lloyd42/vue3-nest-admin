@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiOperation, ApiProperty } from '@nestjs/swagger';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -26,4 +26,7 @@ export class User {
     example: 1,
   })
   actived: number;
+
+  @Column()
+  salt?: string;
 }

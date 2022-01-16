@@ -5,6 +5,8 @@ import { Logger } from '@nestjs/common';
 import { Log4jsLogger } from '@nestx-log4js/core';
 
 const port = '3000';
+const version = '1.0';
+const globalPrefix = `/api/v${version}`;
 const logger = new Logger('main.ts');
 
 const bootstrap = async () => {
@@ -13,12 +15,18 @@ const bootstrap = async () => {
   const options = new DocumentBuilder()
     .setTitle('Vue3 Nest Admin')
     .setDescription('为 Vue3 Admin 提供 API')
-    .setVersion('1.0')
+    .setVersion(version)
     .addTag('Vue3 Admin')
+    .addServer(globalPrefix)
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+      'jwt',
+    )
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
 
+  app.setGlobalPrefix(globalPrefix);
   app.useLogger(app.get(Log4jsLogger));
 
   await app.listen(port);
