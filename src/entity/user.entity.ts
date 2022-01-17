@@ -9,7 +9,7 @@ export class User {
   @Column()
   @ApiProperty({
     description: '用户名',
-    example: 'abc',
+    example: 'abcd',
   })
   username: string;
 

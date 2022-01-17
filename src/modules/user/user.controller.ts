@@ -7,30 +7,24 @@ import { UserService } from './user.service';
 
 @Controller('user')
 @ApiTags('用户模块')
+@UseGuards(AuthGuard('jwt'))
+@ApiBearerAuth('jwt')
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Post('regist')
-  @ApiOperation({
-    summary: '用户注册',
-  })
-  async registerUser(@Body() userDto: User) {
-    return await this.userService.regist(userDto);
-  }
-
   @Get('hello')
   @Role('admin')
-  @UseGuards(AuthGuard('jwt'))
-  @ApiBearerAuth('jwt')
   hello() {
     return 'hello';
   }
 
-  @Post('login')
-  @ApiOperation({
-    summary: '用户登录',
-  })
-  async login(@Body() userDto: User) {
-    return this.userService.login(userDto);
+  @Get('save')
+  save() {
+    return this.userService.saveHello();
+  }
+
+  @Get('get')
+  get() {
+    return this.userService.getHello();
   }
 }

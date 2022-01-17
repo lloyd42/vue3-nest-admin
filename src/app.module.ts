@@ -7,6 +7,8 @@ import { User } from './entity/user.entity';
 import { UserModule } from './modules/user/user.module';
 
 import { Log4jsModule } from '@nestx-log4js/core';
+import { AuthModule } from './modules/auth/auth.module';
+import { CacheModule } from './modules/cache/cache.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { Log4jsModule } from '@nestx-log4js/core';
     }),
     Log4jsModule.forRoot(),
     UserModule,
+    AuthModule,
+    CacheModule,
   ],
   controllers: [AppController],
   providers: [AppService],
